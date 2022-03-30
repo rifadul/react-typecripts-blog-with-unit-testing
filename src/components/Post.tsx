@@ -26,17 +26,21 @@ export const Post = () => {
     const [posts, setPosts] = useState<InitPost[]>([]);
     const [pageNumber, setPageNumber] = useState(0);
     const navigate = useNavigate();
+
+    //paginations
     const [page, setPage] = useState<number>(1);
     const [currentPage, setCurrentPage] = useState<number>(1);
-    const rowsPerPage = 20;
+    const [rowsPerPage, setRowsPerPage] = useState<number>(20);
 
     useEffect(() => {
         getPostData();
-        const interval = setInterval(() => {
-            setPageNumber((pageNumber) => pageNumber + 1);
-            console.log('This will run every second!');
-        }, 10000);
-        return () => clearInterval(interval);
+        if (pageNumber <= 50) {
+            const interval = setInterval(() => {
+                setPageNumber((pageNumber) => pageNumber + 1);
+                console.log('This will run every second!');
+            }, 10000);
+            return () => clearInterval(interval);
+        }
     }, [pageNumber]);
 
     useEffect(() => {
@@ -50,8 +54,8 @@ export const Post = () => {
             const response = await axios.get(
                 `https://hn.algolia.com/api/v1/search_by_date?tags=story&page=${pageNumber}`
             );
-            // console.log(response.data.hits);
-            // console.log([...posts, ...response.data.hits]);
+            console.log('new data get', response.data.hits);
+            // console.log('add data get', [...posts, ...response.data.hits]);
 
             setPosts((posts) => [...posts, ...response.data.hits]);
         } catch (error) {
@@ -60,13 +64,13 @@ export const Post = () => {
     };
 
     const postDetails = (post: InitPost) => {
-        console.log('i am click', post);
+        // console.log('i am click', post);
         navigate(`/post-details/${post.objectID}`, { state: post });
     };
 
     const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
         setPage(value);
-        console.log('pa3w', value);
+        // console.log('pa3w', value);
     };
     return (
         <Container maxWidth="xl" data-testid="post-component-testid">
@@ -117,7 +121,7 @@ export const Post = () => {
                     onChange={handleChange}
                 /> */}
                 <Pagination
-                    count={pageNumber}
+                    count={currentPage}
                     page={page}
                     onChange={handleChange}
                     color="secondary"
