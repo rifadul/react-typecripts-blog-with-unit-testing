@@ -19,7 +19,7 @@ export const elementGetByTestId = (testId: string) => {
     return screen.getByTestId(`${testId}`);
 };
 
-export const elementGetBytext = (text: string) => {
+export const elementGetBytext = (text: string|number) => {
     return screen.getByText(`${text}`);
 };
 
@@ -31,6 +31,6 @@ export const toBeExpectByTestId = (testId: string) => {
     return expect(screen.getByTestId(`${testId}`)).toBeInTheDocument();
 };
 
-export const toBeExpectByText = (text: string) => {
+export const toBeExpectByText = (text: string|number) => {
     return expect(screen.getByText(`${text}`)).toBeInTheDocument();
 };

@@ -30,11 +30,10 @@ export const Post = () => {
     //paginations
     const [page, setPage] = useState<number>(1);
     const [currentPage, setCurrentPage] = useState<number>(1);
-    const [rowsPerPage, setRowsPerPage] = useState<number>(20);
-
+    const rowsPerPage = 20;
     useEffect(() => {
-        getPostData();
-        if (pageNumber <= 50) {
+        if (pageNumber < 50) {
+            getPostData();
             const interval = setInterval(() => {
                 setPageNumber((pageNumber) => pageNumber + 1);
                 console.log('This will run every second!');
@@ -45,12 +44,11 @@ export const Post = () => {
 
     useEffect(() => {
         setCurrentPage(parseInt((posts.length / rowsPerPage).toString()));
-    }, [posts]);
+    }, [posts, rowsPerPage]);
 
     const getPostData = async () => {
         try {
             // console.log('pagenumber', pageNumber);
-
             const response = await axios.get(
                 `https://hn.algolia.com/api/v1/search_by_date?tags=story&page=${pageNumber}`
             );
@@ -75,59 +73,71 @@ export const Post = () => {
     return (
         <Container maxWidth="xl" data-testid="post-component-testid">
             <h1>Post</h1>
-            <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>Title</TableCell>
-                            <TableCell align="right">Url</TableCell>
-                            <TableCell align="right">Author</TableCell>
-                            <TableCell align="right">Create At</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {posts
-                            .slice(
-                                rowsPerPage * (page - 1),
-                                rowsPerPage * (page - 1) + rowsPerPage
-                            )
-                            .map((row, i) => (
-                                <TableRow
-                                    key={i}
-                                    sx={{
-                                        '&:last-child td, &:last-child th': {
-                                            border: 0,
-                                        },
-                                    }}
-                                    onClick={() => postDetails(row)}
-                                    data-testid="click-testid">
-                                    <TableCell component="th" scope="row">
-                                        {row.title}
+            {/* <h1>page{pageNumber}</h1> */}
+            {posts.length > 0 ? (
+                <>
+                    <TableContainer component={Paper}>
+                        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell align="center">Title</TableCell>
+                                    <TableCell align="center">Url</TableCell>
+                                    <TableCell align="center">Author</TableCell>
+                                    <TableCell align="center">
+                                        Create At
                                     </TableCell>
-                                    <TableCell>{row.url}</TableCell>
-                                    <TableCell>{row.author}</TableCell>
-                                    <TableCell>{row.created_at}</TableCell>
                                 </TableRow>
-                            ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-
-            <Stack spacing={2}>
-                {/* <Pagination
-                    count={pageNumber + 1}
-                    color="primary"
-                    page={page}
-                    onChange={handleChange}
-                /> */}
-                <Pagination
-                    count={currentPage}
-                    page={page}
-                    onChange={handleChange}
-                    color="secondary"
-                    data-testid="pagination"
-                />
-            </Stack>
+                            </TableHead>
+                            <TableBody>
+                                {posts
+                                    .slice(
+                                        rowsPerPage * (page - 1),
+                                        rowsPerPage * (page - 1) + rowsPerPage
+                                    )
+                                    .map((row, i) => (
+                                        <TableRow
+                                            key={i}
+                                            sx={{
+                                                '&:last-child td, &:last-child th':
+                                                    {
+                                                        border: 0,
+                                                    },
+                                            }}
+                                            onClick={() => postDetails(row)}
+                                            data-testid="click-testid">
+                                            <TableCell
+                                                component="th"
+                                                scope="row"
+                                                data-testid="title-testid">
+                                                {row.title}
+                                            </TableCell>
+                                            <TableCell data-testid="url-testid">
+                                                {row.url}
+                                            </TableCell>
+                                            <TableCell data-testid="author-testid">
+                                                {row.author}
+                                            </TableCell>
+                                            <TableCell data-testid="create-at-testid">
+                                                {row.created_at}
+                                            </TableCell>
+                                        </TableRow>
+                                    ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                    <Stack spacing={2}>
+                        <Pagination
+                            count={currentPage}
+                            page={page}
+                            onChange={handleChange}
+                            color="secondary"
+                            data-testid="pagination"
+                        />
+                    </Stack>
+                </>
+            ) : (
+                <h3>Loading new Post Data...</h3>
+            )}
         </Container>
     );
 };
