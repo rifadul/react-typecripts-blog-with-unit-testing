@@ -32,14 +32,12 @@ export const Post = () => {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const rowsPerPage = 20;
     useEffect(() => {
-        if (pageNumber < 50) {
             getPostData();
             const interval = setInterval(() => {
                 setPageNumber((pageNumber) => pageNumber + 1);
                 console.log('This will run every second!');
             }, 10000);
             return () => clearInterval(interval);
-        }
     }, [pageNumber]);
 
     useEffect(() => {
