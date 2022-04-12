@@ -3,7 +3,6 @@ import { act } from '@testing-library/react';
 import axios from 'axios';
 import Post from '../components/Post';
 import {
-    toBeExpectByTestId,
     toBeExpectByText,
     componentRenderByMemoryRouter,
     elementGetByTestId,
