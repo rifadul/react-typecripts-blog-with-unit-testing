@@ -42,16 +42,25 @@ describe('test for app component', () => {
         // await waitFor(() => expect(axios.get).toHaveBeenCalledTimes(1));
     });
 
-    test('should render postDetails component', () => {
-        componentRenderByMemoryRouter('/post-details/2/', <App />);
+    test('should render postDetails component', async () => {
+        await act(async () => {
+            componentRenderByMemoryRouter('/post-details/2/', <App />);
+        });
+        // componentRenderByMemoryRouter('/post-details/2/', <App />);
         toBeExpectByText('Post Details');
     });
 
-    test('should render 404 page', () => {
-        componentRenderByMemoryRouter(
-            '/post-details/2/hjgsdfjghsdjfg',
-            <App />
-        );
+    test('should render 404 page', async () => {
+        // componentRenderByMemoryRouter(
+        //     '/post-details/2/hjgsdfjghsdjfg',
+        //     <App />
+        // );
+        await act(async () => {
+            componentRenderByMemoryRouter(
+                '/post-details/2/hjgsdfjghsdjfg',
+                <App />
+            );
+        });
         toBeExpectByText('404 Page Not Found');
     });
 });

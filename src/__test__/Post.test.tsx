@@ -1,7 +1,7 @@
 /* eslint-disable testing-library/no-unnecessary-act */
 import { act } from '@testing-library/react';
 import axios from 'axios';
-import { Post } from '../components/Post';
+import Post from '../components/Post';
 import {
     toBeExpectByTestId,
     toBeExpectByText,
@@ -19,6 +19,17 @@ describe('Test the post Component', () => {
         created_at_i: 1644667812,
         objectID: '303121821',
     };
+
+    const myData = [
+        {
+            created_at: '2022-02-12T12:10:12:000z',
+            title: 'Can GPT-3 AI rite comedy?',
+            url: 'https://robmanuelfuckyeah.substack.com/p/someone-needs-to-stop-me-playing',
+            author: 'rossvor',
+            created_at_i: 1644667812,
+            objectID: '303121821',
+        },
+    ];
 
     beforeEach(() => {
         jest.spyOn(axios, 'get').mockResolvedValue({
@@ -39,34 +50,34 @@ describe('Test the post Component', () => {
 
     test('should render Post component', async () => {
         await act(async () => {
-            componentRenderByMemoryRouter('/', <Post />);
+            componentRenderByMemoryRouter('/', <Post posts={myData} />);
         });
         elementGetBytext('Post');
     });
 
     test('should render post list', async () => {
         await act(async () => {
-            componentRenderByMemoryRouter('/', <Post />);
+            componentRenderByMemoryRouter('/', <Post posts={myData} />);
         });
         elementGetByTestId('post-component-testid');
     });
 
     test('should render pagination', async () => {
         await act(async () => {
-            componentRenderByMemoryRouter('/', <Post />);
+            componentRenderByMemoryRouter('/', <Post posts={myData} />);
         });
         elementGetByTestId('pagination');
     });
 
     test('find post title', async () => {
         await act(async () => {
-            componentRenderByMemoryRouter('/', <Post />);
+            componentRenderByMemoryRouter('/', <Post posts={myData} />);
         });
         toBeExpectByText('Can GPT-3 AI rite comedy?');
     });
     test('find post url', async () => {
         await act(async () => {
-            componentRenderByMemoryRouter('/', <Post />);
+            componentRenderByMemoryRouter('/', <Post posts={myData} />);
         });
         toBeExpectByText(
             'https://robmanuelfuckyeah.substack.com/p/someone-needs-to-stop-me-playing'
@@ -74,13 +85,13 @@ describe('Test the post Component', () => {
     });
     test('find post author', async () => {
         await act(async () => {
-            componentRenderByMemoryRouter('/', <Post />);
+            componentRenderByMemoryRouter('/', <Post posts={myData} />);
         });
         toBeExpectByText('rossvor');
     });
     test('find post create at', async () => {
         await act(async () => {
-            componentRenderByMemoryRouter('/', <Post />);
+            componentRenderByMemoryRouter('/', <Post posts={myData} />);
         });
         toBeExpectByText('2022-02-12T12:10:12:000z');
     });
