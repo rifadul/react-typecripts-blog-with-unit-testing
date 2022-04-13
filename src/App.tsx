@@ -20,13 +20,7 @@ function App() {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const rowsPerPage = 20;
 
-    const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-        setPage(value);
-        console.log('pa3w', value);
-    };
-    useEffect(() => {
-        setCurrentPage(parseInt((posts.length / rowsPerPage).toString()));
-    }, [posts, rowsPerPage]);
+
 
     useEffect(() => {
         getPostData();
@@ -38,9 +32,20 @@ function App() {
 
     }, [pageNumber]);
 
+    useEffect(() => {
+        setCurrentPage(parseInt((posts.length / rowsPerPage).toString()));
+    }, [posts, rowsPerPage]);
+
+
+    // the function update pagination page number
+    const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+        setPage(value);
+        console.log('pa3w', value);
+    };
+
+    // fatch the data from API request
     const getPostData = async () => {
         try {
-            // console.log('pagenumber', pageNumber);
             const response = await axios.get(
                 `https://hn.algolia.com/api/v1/search_by_date?tags=story&page=${pageNumber}`
             );

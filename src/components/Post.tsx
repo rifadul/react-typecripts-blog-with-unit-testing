@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import {
@@ -28,30 +28,13 @@ const Post = (props: any) => {
     
     const navigate = useNavigate();
 
-    //paginations
-    // const [page, setPage] = useState<number>(1);
-    // const [currentPage, setCurrentPage] = useState<number>(1);
-    // const rowsPerPage = 20;
-
-
-    // useEffect(() => {
-    //     setCurrentPage(parseInt((posts.length / rowsPerPage).toString()));
-    // }, [posts, rowsPerPage]);
-
-
     const postDetails = (post: InitPost) => {
-        // console.log('i am click', post);
         navigate(`/post-details/${post.objectID}`, { state: post });
     };
 
-    // const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-    //     setPage(value);
-    //     // console.log('pa3w', value);
-    // };
     return (
         <Container maxWidth="xl" data-testid="post-component-testid">
             <h1>Post</h1>
-            {/* <h1>page{pageNumber}</h1> */}
             {posts.length > 0 ? (
                 <>
                     <TableContainer component={Paper}>
