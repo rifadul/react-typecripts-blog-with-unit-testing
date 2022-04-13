@@ -1,5 +1,5 @@
-import  Post from './components/Post';
-import { PostDetails } from './components/PostDetails';
+import  Post from '../src/components/Post';
+import { PostDetails } from '../src/components/PostDetails';
 import { Routes, Route } from 'react-router-dom';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';

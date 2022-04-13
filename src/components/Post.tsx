@@ -23,9 +23,8 @@ export interface InitPost {
 }
 
 const Post = (props: any) => {
-    const {posts,handleChange,page,currentPage,rowsPerPage}= props
-    
-    
+    const { posts, handleChange, page, currentPage, rowsPerPage } = props;
+
     const navigate = useNavigate();
 
     const postDetails = (post: InitPost) => {
