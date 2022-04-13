@@ -15,19 +15,6 @@ function App() {
     const [posts, setPosts] = useState<InitPost[]>([]);
     const [pageNumber, setPageNumber] = useState(0);
 
-    // pagination
-    const [page, setPage] = useState<number>(1);
-    const [currentPage, setCurrentPage] = useState<number>(1);
-    const rowsPerPage = 20;
-
-    const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-        setPage(value);
-        console.log('pa3w', value);
-    };
-    useEffect(() => {
-        setCurrentPage(parseInt((posts.length / rowsPerPage).toString()));
-    }, [posts, rowsPerPage]);
-
     useEffect(() => {
         getPostData();
         const interval = setInterval(() => {
@@ -55,7 +42,7 @@ function App() {
     return (
         <div className="App" data-testid="app-component-testid">
             <Routes>
-                <Route path="/" element={<Post posts={posts} handleChange={handleChange} page={page} currentPage={currentPage} rowsPerPage={rowsPerPage} />} />
+                <Route path="/" element={<Post posts={posts} />} />
                 <Route path="/post-details/:id" element={<PostDetails />} />
                 <Route path="*" element={<p>404 Page Not Found</p>} />
             </Routes>

@@ -1,8 +1,6 @@
-import  Post from './components/Post';
-import { PostDetails } from './components/PostDetails';
 import { Routes, Route } from 'react-router-dom';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 
 export interface InitPost {
     title: string;
@@ -11,19 +9,43 @@ export interface InitPost {
     author: string;
     objectID: number;
 }
-function App() {
+export type NewsArrayType = InitPost[];
+
+export type NewsContextType = {
+    posts: NewsArrayType;
+    handleChange: (e: unknown, selectedPage: number) => void;
+    page: number;
+    currentPage: number;
+};
+
+const NewsContext = createContext<NewsContextType>({
+    posts: [],
+    handleChange: () => {},
+    page: 0,
+    currentPage: 1,
+});
+
+export const useNews = () => React.useContext(NewsContext);
+
+// main function
+export const Provider = ({
+    children,
+}: {
+    children: React.ReactChild | React.ReactChild[];
+}) => {
     const [posts, setPosts] = useState<InitPost[]>([]);
     const [pageNumber, setPageNumber] = useState(0);
+    const rowsPerPage = 20;
 
     // pagination
     const [page, setPage] = useState<number>(1);
     const [currentPage, setCurrentPage] = useState<number>(1);
-    const rowsPerPage = 20;
 
     const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
         setPage(value);
-        console.log('pa3w', value);
+        // console.log('pa3w', value);
     };
+
     useEffect(() => {
         setCurrentPage(parseInt((posts.length / rowsPerPage).toString()));
     }, [posts, rowsPerPage]);
@@ -35,7 +57,6 @@ function App() {
             // console.log('This will run every second!');
         }, 10000);
         return () => clearInterval(interval);
-
     }, [pageNumber]);
 
     const getPostData = async () => {
@@ -52,15 +73,17 @@ function App() {
             console.error(error);
         }
     };
-    return (
-        <div className="App" data-testid="app-component-testid">
-            <Routes>
-                <Route path="/" element={<Post posts={posts} handleChange={handleChange} page={page} currentPage={currentPage} rowsPerPage={rowsPerPage} />} />
-                <Route path="/post-details/:id" element={<PostDetails />} />
-                <Route path="*" element={<p>404 Page Not Found</p>} />
-            </Routes>
-        </div>
-    );
-}
 
-export default App;
+    const contextValue = {
+        posts,
+        handleChange,
+        page,
+        currentPage,
+    };
+    return (
+        // <NewsContext.Provider value={contextValue}>
+        //     {children}
+        // </NewsContext.Provider>
+        <h1>ldjfh</h1>
+    );
+};

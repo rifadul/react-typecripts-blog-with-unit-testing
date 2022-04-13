@@ -23,20 +23,20 @@ export interface InitPost {
 }
 
 const Post = (props: any) => {
-    const posts = props.posts;
-    // console.log('my post',posts);
+    const {posts,handleChange,page,currentPage,rowsPerPage}= props
+    
     
     const navigate = useNavigate();
 
     //paginations
-    const [page, setPage] = useState<number>(1);
-    const [currentPage, setCurrentPage] = useState<number>(1);
-    const rowsPerPage = 20;
+    // const [page, setPage] = useState<number>(1);
+    // const [currentPage, setCurrentPage] = useState<number>(1);
+    // const rowsPerPage = 20;
 
 
-    useEffect(() => {
-        setCurrentPage(parseInt((posts.length / rowsPerPage).toString()));
-    }, [posts, rowsPerPage]);
+    // useEffect(() => {
+    //     setCurrentPage(parseInt((posts.length / rowsPerPage).toString()));
+    // }, [posts, rowsPerPage]);
 
 
     const postDetails = (post: InitPost) => {
@@ -44,10 +44,10 @@ const Post = (props: any) => {
         navigate(`/post-details/${post.objectID}`, { state: post });
     };
 
-    const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-        setPage(value);
-        // console.log('pa3w', value);
-    };
+    // const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    //     setPage(value);
+    //     // console.log('pa3w', value);
+    // };
     return (
         <Container maxWidth="xl" data-testid="post-component-testid">
             <h1>Post</h1>
