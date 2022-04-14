@@ -40,7 +40,7 @@ function App() {
     // the function update pagination page number
     const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
         setPage(value);
-        console.log('pa3w', value);
+        // console.log('pa3w', value);
     };
 
     // fatch the data from API request

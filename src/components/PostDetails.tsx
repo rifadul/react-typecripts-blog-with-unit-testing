@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import { InitPost } from './Post';
+import { InitPost } from '../App';
 export const PostDetails = () => {
     const { state } = useLocation();
     const post = state as InitPost;

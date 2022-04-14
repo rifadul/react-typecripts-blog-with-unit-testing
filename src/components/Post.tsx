@@ -14,13 +14,7 @@ import {
     TableRow,
 } from '@mui/material/';
 
-export interface InitPost {
-    title: string;
-    url: string;
-    created_at: Date;
-    author: string;
-    objectID: number;
-}
+import { InitPost } from '../App';
 
 const Post = (props: any) => {
     const { posts, handleChange, page, currentPage, rowsPerPage } = props;
@@ -56,7 +50,7 @@ const Post = (props: any) => {
                                     )
                                     .map(
                                         (
-                                            row: InitPost,
+                                            postData: InitPost,
                                             i: React.Key | null | undefined
                                         ) => (
                                             <TableRow
@@ -67,22 +61,22 @@ const Post = (props: any) => {
                                                             border: 0,
                                                         },
                                                 }}
-                                                onClick={() => postDetails(row)}
+                                                onClick={() => postDetails(postData)}
                                                 data-testid="click-testid">
                                                 <TableCell
                                                     component="th"
                                                     scope="row"
                                                     data-testid="title-testid">
-                                                    {row.title}
+                                                    {postData.title}
                                                 </TableCell>
                                                 <TableCell data-testid="url-testid">
-                                                    {row.url}
+                                                    {postData.url}
                                                 </TableCell>
                                                 <TableCell data-testid="author-testid">
-                                                    {row.author}
+                                                    {postData.author}
                                                 </TableCell>
                                                 <TableCell data-testid="create-at-testid">
-                                                    {row.created_at}
+                                                    {postData.created_at}
                                                 </TableCell>
                                             </TableRow>
                                         )
