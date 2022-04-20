@@ -7,7 +7,8 @@ import React, { useEffect, useState } from 'react';
 export interface InitPost {
     title: string;
     url: string;
-    created_at: Date;
+    created_at: string;
+    // created_at: Date;
     author: string;
     objectID: number;
 }
@@ -34,7 +35,7 @@ function App() {
 
     useEffect(() => {
         setCurrentPage(parseInt((posts.length / rowsPerPage).toString()));
-    }, [posts, rowsPerPage]);
+    }, [posts]);
 
 
     // the function update pagination page number
@@ -57,6 +58,7 @@ function App() {
             console.error(error);
         }
     };
+
     return (
         <div className="App" data-testid="app-component-testid">
             <Routes>
