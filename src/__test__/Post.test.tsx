@@ -26,6 +26,8 @@ describe('Test the post Component', () => {
         console.log('pa3w', value);
     };
 
+    
+
     beforeEach(() => {
         jest.spyOn(axios, 'get').mockResolvedValue({
             data: {

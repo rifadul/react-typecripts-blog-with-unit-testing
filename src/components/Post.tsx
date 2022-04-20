@@ -18,6 +18,8 @@ import { InitPost } from '../App';
 
 const Post = (props: any) => {
     const { posts, handleChange, page, currentPage, rowsPerPage } = props;
+    // const { posts, handleChange, page, currentPage, rowsPerPage } = props.contextValue;
+    // console.log('pp', props.contextValue);
 
     const navigate = useNavigate();
 
@@ -61,7 +63,9 @@ const Post = (props: any) => {
                                                             border: 0,
                                                         },
                                                 }}
-                                                onClick={() => postDetails(postData)}
+                                                onClick={() =>
+                                                    postDetails(postData)
+                                                }
                                                 data-testid="click-testid">
                                                 <TableCell
                                                     component="th"
