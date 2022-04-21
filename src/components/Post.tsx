@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-
 import {
     Container,
     Pagination,
@@ -17,10 +16,8 @@ import {
 import { InitPost } from '../App';
 
 const Post = (props: any) => {
-    const { posts, handleChange, page, currentPage, rowsPerPage } = props;
-    // const { posts, handleChange, page, currentPage, rowsPerPage } = props.contextValue;
-    // console.log('pp', props.contextValue);
-
+    const { posts, handleChange, page, currentPage, rowsPerPage, handelError } =
+        props.data;
     const navigate = useNavigate();
 
     const postDetails = (post: InitPost) => {
@@ -99,7 +96,12 @@ const Post = (props: any) => {
                     </Stack>
                 </>
             ) : (
-                <h3>Loading new Post Data...</h3>
+                <h3>
+                    {' '}
+                    {handelError
+                        ? 'Data Not Found'
+                        : 'Loading new Post Data...'}
+                </h3>
             )}
         </Container>
     );

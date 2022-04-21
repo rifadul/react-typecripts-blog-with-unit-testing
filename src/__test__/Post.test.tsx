@@ -8,111 +8,61 @@ import {
     elementGetByTestId,
     elementGetBytext,
 } from '../utils/testUtils';
+import { mockData } from './MockData';
 
 describe('Test the post Component', () => {
-    const mockData = [
-        {
-            created_at: '2022-02-12T12:10:12:000z',
-            title: 'Can GPT-3 AI rite comedy?',
-            url: 'https://robmanuelfuckyeah.substack.com/p/someone-needs-to-stop-me-playing',
-            author: 'rossvor',
-            created_at_i: 1644667812,
-            objectID: '303121821',
-        },
-    ];
-    
-    // new test
-    const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-        console.log('pa3w', value);
-    };
-
-    
+    const handleChange = (
+        event: React.ChangeEvent<unknown>,
+        value: number
+    ) => {};
 
     beforeEach(() => {
         jest.spyOn(axios, 'get').mockResolvedValue({
             data: {
-                hits: [
-                    mockData[0]
-                ],
+                hits: [mockData[0]],
             },
         });
     });
 
+    const contextValue = {
+        posts: mockData,
+        handleChange,
+        page: 1,
+        currentPage: 1,
+        rowsPerPage: 20,
+        handelError: false,
+    };
+
     test('should render Post component', async () => {
         await act(async () => {
-            componentRenderByMemoryRouter(
-                '/',
-                <Post
-                    posts={mockData}
-                    handleChange={handleChange}
-                    page={1}
-                    currentPage={1}
-                    rowsPerPage={20}
-                />
-            );
+            componentRenderByMemoryRouter('/', <Post data={contextValue} />);
         });
         elementGetBytext('Post');
     });
 
     test('should render post list', async () => {
         await act(async () => {
-            componentRenderByMemoryRouter(
-                '/',
-                <Post
-                    posts={mockData}
-                    handleChange={handleChange}
-                    page={1}
-                    currentPage={1}
-                    rowsPerPage={20}
-                />
-            );
+            componentRenderByMemoryRouter('/', <Post data={contextValue} />);
         });
         elementGetByTestId('post-component-testid');
     });
 
     test('should render pagination', async () => {
         await act(async () => {
-            componentRenderByMemoryRouter(
-                '/',
-                <Post
-                    posts={mockData}
-                    handleChange={handleChange}
-                    page={1}
-                    currentPage={1}
-                    rowsPerPage={20}
-                />
-            );
+            componentRenderByMemoryRouter('/', <Post data={contextValue} />);
         });
         elementGetByTestId('pagination');
     });
 
     test('find post title', async () => {
         await act(async () => {
-            componentRenderByMemoryRouter(
-                '/',
-                <Post
-                    posts={mockData}
-                    handleChange={handleChange}
-                    page={1}
-                    currentPage={1}
-                    rowsPerPage={20}
-                />
-            );
+            componentRenderByMemoryRouter('/', <Post data={contextValue} />);
         });
         toBeExpectByText('Can GPT-3 AI rite comedy?');
     });
     test('find post url', async () => {
         await act(async () => {
-            componentRenderByMemoryRouter(
-                '/',
-                <Post
-                    posts={mockData}
-                    handleChange={handleChange}
-                    page={1}
-                    currentPage={1}
-                    rowsPerPage={20}
-                />
-            );
+            componentRenderByMemoryRouter('/', <Post data={contextValue} />);
         });
         toBeExpectByText(
             'https://robmanuelfuckyeah.substack.com/p/someone-needs-to-stop-me-playing'
@@ -120,31 +70,13 @@ describe('Test the post Component', () => {
     });
     test('find post author', async () => {
         await act(async () => {
-            componentRenderByMemoryRouter(
-                '/',
-                <Post
-                    posts={mockData}
-                    handleChange={handleChange}
-                    page={1}
-                    currentPage={1}
-                    rowsPerPage={20}
-                />
-            );
+            componentRenderByMemoryRouter('/', <Post data={contextValue} />);
         });
         toBeExpectByText('rossvor');
     });
     test('find post create at', async () => {
         await act(async () => {
-            componentRenderByMemoryRouter(
-                '/',
-                <Post
-                    posts={mockData}
-                    handleChange={handleChange}
-                    page={1}
-                    currentPage={1}
-                    rowsPerPage={20}
-                />
-            );
+            componentRenderByMemoryRouter('/', <Post data={contextValue} />);
         });
         toBeExpectByText('2022-02-12T12:10:12:000z');
     });
@@ -155,20 +87,9 @@ describe('Test the post Component', () => {
         );
 
         expect(response.data).toBeDefined();
-        // expect(response.data.hits[0].title).toBe('Can GPT-3 AI rite comedy?');
-        // expect(response.data.hits[0].url).toBe(
-        //     'https://robmanuelfuckyeah.substack.com/p/someone-needs-to-stop-me-playing'
-        // );
-        // expect(response.data.hits[0].author).toBe('rossvor');
-        // expect(response.data.hits[0].created_at).toBe(
-        //     '2022-02-12T12:10:12:000z'
-        // );
-
         expect(response.data.hits[0].title).toBe(mockData[0].title);
         expect(response.data.hits[0].url).toBe(mockData[0].url);
         expect(response.data.hits[0].author).toBe(mockData[0].author);
-        expect(response.data.hits[0].created_at).toBe(
-            mockData[0].created_at
-        );
+        expect(response.data.hits[0].created_at).toBe(mockData[0].created_at);
     });
 });
