@@ -12,10 +12,19 @@ export interface InitPost {
     objectID: number;
 }
 
+export interface ContexType {
+    posts: InitPost[];
+    handleChange: (_event: React.ChangeEvent<unknown>, value: number) => void;
+    page: number;
+    currentPage: number;
+    rowsPerPage: number;
+    handelError: boolean;
+}
+
 function App() {
     const [posts, setPosts] = useState<InitPost[]>([]);
     const [pageNumber, setPageNumber] = useState<number>(0);
-    const [handelError, setHandelError] = useState(false)
+    const [handelError, setHandelError] = useState<boolean>(false);
 
     // pagination
     const [page, setPage] = useState<number>(1);
@@ -56,7 +65,7 @@ function App() {
         setCurrentPage(parseInt((posts.length / rowsPerPage).toString()));
     }, [posts]);
 
-    const contextValue = {
+    const contextValue: ContexType = {
         posts,
         handleChange,
         page,
@@ -64,7 +73,6 @@ function App() {
         rowsPerPage,
         handelError,
     };
-
     return (
         <div className="App" data-testid="app-component-testid">
             <Routes>

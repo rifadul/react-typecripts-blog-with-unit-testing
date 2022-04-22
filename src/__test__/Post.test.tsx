@@ -1,6 +1,7 @@
 /* eslint-disable testing-library/no-unnecessary-act */
 import { act } from '@testing-library/react';
 import axios from 'axios';
+import { ContexType } from '../App';
 import Post from '../components/Post';
 import {
     toBeExpectByText,
@@ -24,7 +25,7 @@ describe('Test the post Component', () => {
         });
     });
 
-    const contextValue = {
+    const contextValue: ContexType = {
         posts: mockData,
         handleChange,
         page: 1,

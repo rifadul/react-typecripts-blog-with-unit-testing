@@ -5,6 +5,6 @@ export const mockData = [
         url: 'https://robmanuelfuckyeah.substack.com/p/someone-needs-to-stop-me-playing',
         author: 'rossvor',
         created_at_i: 1644667812,
-        objectID: '303121821',
+        objectID: 303121821,
     },
 ];

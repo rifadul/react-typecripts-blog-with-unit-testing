@@ -13,11 +13,15 @@ import {
     TableRow,
 } from '@mui/material/';
 
-import { InitPost } from '../App';
+import { ContexType, InitPost } from '../App';
 
-const Post = (props: any) => {
+interface IProps {
+    data: ContexType;
+}
+
+const Post = ({ data }: IProps) => {
     const { posts, handleChange, page, currentPage, rowsPerPage, handelError } =
-        props.data;
+        data;
     const navigate = useNavigate();
 
     const postDetails = (post: InitPost) => {

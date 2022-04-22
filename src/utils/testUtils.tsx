@@ -1,4 +1,4 @@
-import { render, act, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import React, { ReactChild, ReactElement } from 'react';
 import { MemoryRouter } from 'react-router-dom';
 
@@ -19,10 +19,6 @@ export const elementGetByTestId = (testId: string) => {
 
 export const elementGetBytext = (text: string | number) => {
     return screen.getByText(`${text}`);
-};
-
-export const toBeExpect = (linkElement: HTMLElement) => {
-    return expect(linkElement).toBeInTheDocument();
 };
 
 export const toBeExpectByTestId = (testId: string) => {
