@@ -8,7 +8,7 @@ import {
     toBeExpectByText,
 } from '../utils/testUtils';
 import { act } from '@testing-library/react';
-import { mockData } from './MockData';
+import { mockData } from '../utils/MockData';
 
 describe('test for app component', () => {
     beforeEach(() => {

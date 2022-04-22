@@ -9,7 +9,7 @@ import {
     elementGetByTestId,
     elementGetBytext,
 } from '../utils/testUtils';
-import { mockData } from './MockData';
+import { mockData } from '../utils/MockData';
 
 describe('Test the post Component', () => {
     const handleChange = (
